@@ -1,4 +1,4 @@
-(defproject clj-google-stackdriver-logging "0.1.0-SNAPSHOT"
+(defproject clj-google-stackdriver-logging "1.0"
   :description "Google Stackdriver Logging api"
   :url "https://github.com/xerp/clj-google-stackdriver-logging"
   :license {:name "Eclipse Public License"

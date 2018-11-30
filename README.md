@@ -1,10 +1,12 @@
 # Google Stackdriver Logging
 
-Google Stackdriver Logging api
+Google Stackdriver Logging api https://cloud.google.com/logging/docs/
 
-## Usage
+## Installation
 
-FIXME
+```clojure
+[clj-google-stackdriver-logging "x.x.x"] ;See clojars version
+```
 
 ## License
 
