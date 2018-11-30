@@ -50,9 +50,24 @@
 
 
 (defn make-log
-  [resource log-name level data]
+  [level resource log-name data]
   {:severity                     (.toUpperCase (name level))
-   :logName                      (make-log-name :project resource log-name)
+   :logName                      (make-log-name :projects resource log-name)
    :resource                     resource
    (if (map? data) :jsonPayload
                    :textPayload) data})
+
+(defmacro def-log-fn
+  [level]
+  (let [fn-name (symbol (str "make-" (.toLowerCase (name level)) "-log"))]
+    `(defn ~fn-name
+       ~'[resource log-name data]
+       (make-log ~level ~'resource ~'log-name ~'data))))
+
+(declare make-info-log make-error-log make-warning-log make-alert-log make-critical-log)
+
+(def-log-fn :info)
+(def-log-fn :error)
+(def-log-fn :warning)
+(def-log-fn :alert)
+(def-log-fn :critical)
