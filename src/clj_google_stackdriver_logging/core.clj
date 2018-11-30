@@ -19,7 +19,7 @@
 
 (defn list-logs
   [resource-names & {:keys [filter order-by page-size page-token]
-                     :or   {filter [] order-by :asc page-size 50 page-token ""}}]
+                     :or   {filter {} order-by :asc page-size nil page-token ""}}]
   (if-let [[request-url data] (make-request :list :list-logs
                                             [resource-names filter order-by page-size page-token])]
     (if-let [json-response (json-data http/post request-url data)]

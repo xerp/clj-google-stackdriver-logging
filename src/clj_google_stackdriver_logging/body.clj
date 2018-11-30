@@ -3,18 +3,26 @@
 
 (def ^:private order-by-field :timestamp)
 
+(defmacro assoc-if-not
+  [not-check-fn dict key value]
+  `(if (not (~not-check-fn ~value))
+     (assoc ~dict ~key ~value)
+     ~dict))
+
 (defn assoc-if-not-blank
   [dict key value]
-  (if (not (string/blank? value))
-    (assoc dict key value)
-    dict))
+  (assoc-if-not string/blank? dict key value))
+
+(defn assoc-if-not-nil
+  [dict key value]
+  (assoc-if-not nil? dict key value))
 
 (defn- stringify-filter
   [filter]
   (if (empty? filter)
     ""
-    (let [fields (map (fn [field]
-                        (string/join "=" (map name field))) filter)]
+    (let [fields (map (fn [[field value]]
+                        (string/join "=" (map name [field value]))) filter)]
       (string/join " " fields))))
 
 (defmulti request-body (fn [type _] (keyword type)))
@@ -33,8 +41,8 @@
         order-by (string/join " " (map name [order-by-field order-by]))
         filter (stringify-filter filter)
         default-body {:resourceNames resource-names
-                      :orderBy       order-by
-                      :pageSize      page-size}
-        body (assoc-if-not-blank default-body :filter filter)
+                      :orderBy       order-by}
+        body (assoc-if-not-nil default-body :pageSize page-size)
+        body (assoc-if-not-blank body :filter filter)
         body (assoc-if-not-blank body :pageToken page-token)]
     body))

@@ -9,7 +9,7 @@
 
 (defn- stackdriver-logging-url
   [api-method]
-  (string/join "/" [stackdriver-logging-base-url stackdriver-logging-api-version "entries:" (name api-method)]))
+  (string/join "/" [stackdriver-logging-base-url stackdriver-logging-api-version (str "entries:" (name api-method))]))
 
 (defmulti make-log-name (fn [type _ _] (keyword type)))
 
