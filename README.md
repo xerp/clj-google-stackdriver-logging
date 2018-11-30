@@ -1,4 +1,8 @@
+[![CircleCI](https://circleci.com/gh/xerp/clj-google-stackdriver-logging.svg?style=svg)](https://circleci.com/gh/xerp/clj-google-stackdriver-logging)
+
 # Google Stackdriver Logging
+
+[![Clojars Project](https://img.shields.io/clojars/v/clj-google-stackdriver-logging.svg)](https://clojars.org/clj-google-stackdriver-logging)
 
 Google Stackdriver Logging api https://cloud.google.com/logging/docs/
 
