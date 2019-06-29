@@ -1,14 +1,14 @@
 (ns clj-google-stackdriver-logging.core
   (:require [clj-http.client :as http]
             [cemerick.url :refer [url url-encode]]
-            [clojure.data.json :as json]
+            [clj-google.core :refer [json]]
             [clj-google-stackdriver-logging.factory :refer [make-request]]))
 
 
 (defn- json-data
   [http-fn request-url data]
   (if-let [response (http-fn request-url data)]
-    (let [json-response (json/read-str (:body response) :key-fn keyword)]
+    (let [json-response (json (:body response))]
       json-response)))
 
 (defn write-log
